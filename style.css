@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Noto+Sans:wght@100..900&family=Oswald:wght@200..700&display=swap');
+
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif; /* Default font for the body */
+}
+
+body {
+    line-height: 1.6;
+    background-color: #000000;
+    background-image: url(dumbell.png);
+    background-size: 120%;
+    padding: 20px;
+}
+
+/* Header Styles */
+header nav {
+    display: flex;
+    justify-content: center;
+    gap: 800px;
+}
+
+header nav h1 {
+    font-size: 40px;
+    color: #ffffff;
+}
+
+header nav ul {
+    font-size: 25px;
+    list-style: none;
+    gap: 50px;
+    color: #ddd;
+    display: flex;
+}
+
+header nav ul li:hover {
+    cursor: pointer;
+    color: rgba(255, 94, 0, 0.822);
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.616);
+    padding: 60px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(216, 201, 201, 0.1);
+}
+
+/* Headings */
+h1 {
+    text-align: left; /* Aligning heading to the left */
+    margin-bottom: 20px;
+    color: #333;
+    animation: fadeIn 1s; /* Adding fade-in animation */
+}
+
+/* Form Styles */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+select, input[type="number"], button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Checkbox Styles */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-left: 10px;
+}
+
+/* Button Styles */
+button {
+    background-color: #4e73f0;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Result Styles */
+#result {
+    margin-top: 20px;
+    white-space: pre-wrap;
+}
+
+#result ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#result li {
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+
+/* Additional Styles for Button and Recommendations */
+.btn {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+.recommendation {
+    margin-top: 30px;
+    text-align: left; /* Align recommendations to the left */
+    font-size: 1.5em;
+    color: #333;
+    opacity: 0; /* Start invisible */
+    animation: slideIn 0.5s forwards; /* Adding slide-in animation */
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1; /* Fully visible */
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
