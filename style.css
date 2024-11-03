@@ -1,17 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Noto+Sans:wght@100..900&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fredoka:wdth,wght@91.7,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
 
 /* General Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans', sans-serif; /* Default font for the body */
+    font-family: "Fredoka", sans-serif; /* Default font for the body */
 }
 
 body {
     line-height: 1.6;
     background-color: #000000;
-    background-image: url(dumbell.png);
+    background-image: url(emptygym.jpg);
     background-size: 120%;
     padding: 20px;
 }
@@ -41,22 +45,58 @@ header nav ul li:hover {
     color: rgba(255, 94, 0, 0.822);
 }
 
+label{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
 /* Container Styles */
 .container {
+    position: relative; /* Make the container position relative */
     max-width: 800px;
     margin: auto;
-    background: rgba(255, 255, 255, 0.616);
     padding: 60px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(216, 201, 201, 0.1);
+    box-shadow: 0 0 10px rgba(236, 227, 227, 0.959);
+    overflow: hidden; /* Prevents overflow of the pseudo-element */
+    font-size: 20px;
+    background-color: black;
+    
+
+}
+
+
+
+.container > * {
+    position: relative; /* Ensures content appears above the pseudo-element */
+}
+
+.save-btn {
+    display: block; /* Ensures the button starts on a new line */
+    margin-top: 20px; /* Adds space above the button */
+    padding: 10px 20px;
+    background-color: #007BFF; /* Button color */
+    color: white;  /* Text color */
+    border: none;  /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+}
+
+.save-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
 }
 
 /* Headings */
 h1 {
+    font-family: "Roboto Slab", serif;
+    font-size: 40px;
     text-align: left; /* Aligning heading to the left */
     margin-bottom: 20px;
-    color: #333;
-    animation: fadeIn 1s; /* Adding fade-in animation */
+    color: rgb(255, 255, 255) ;
+    animation: fadeIn 2s; /* Adding fade-in animation */
+    align-items: center;
+    text-align: center;
 }
 
 /* Form Styles */
@@ -119,6 +159,9 @@ button:hover {
     border-radius: 4px;
     background: #f9f9f9;
 }
+.form-group{
+    padding-bottom: 15px;
+}
 
 /* Additional Styles for Button and Recommendations */
 .btn {
@@ -131,6 +174,7 @@ button:hover {
     font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s;
+
 }
 
 .btn:hover {
@@ -141,7 +185,7 @@ button:hover {
     margin-top: 30px;
     text-align: left; /* Align recommendations to the left */
     font-size: 1.5em;
-    color: #333;
+    color: #ffffff;
     opacity: 0; /* Start invisible */
     animation: slideIn 0.5s forwards; /* Adding slide-in animation */
 }
