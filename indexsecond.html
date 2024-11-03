@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Recommender</title>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1> WORKOUT RECOMMENDER</h1>
+        
+        <div class="form-group">
+            <label for="level">Fitness Level:</label>
+            <select id="level">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="equipment">Available Equipment:</label>
+            <select id="equipment">
+                <option value="Bands">Bands</option>
+                <option value="None">None</option>
+                <option value="Weights">Weights</option>
+                <option value="Other">Other</option>
+                <option value="Kettlebells">Kettlebells</option>
+                <option value="Cable">Cable</option>
+                <option value="Machine">Machine</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="bodyPart">Target Body Part:</label>
+            <select id="bodyPart">
+                <option value="Abdominals">Abdominals</option>
+                <option value="Legs">Legs</option>
+                <option value="Arms">Arms</option>
+                <option value="Forearms">Forearms</option>
+                <option value="Glutes">Glutes</option>
+                <option value="Hamstrings">Hamstrings</option>
+                <option value="Lats">Lats</option>
+                <option value="Lowerback">Lower Back</option>
+                <option value="Middleback">Middle Back</option>
+                <option value="Traps">Traps</option>
+                <option value="Neck">Neck</option>
+                <option value="Quadriceps">Quadriceps</option>
+                <option value="Shoulders">Shoulders</option>
+                <option value="Triceps">Triceps</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Workout Type:</label>
+            <select id="type">
+                <option value="Strength">Strength</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Flexibility">Flexibility</option>
+                <option value="Plyometrics">Plyometrics</option>
+                <option value="Powerlifting">Powerlifting</option>
+            </select>
+        </div>
+
+        <button id="recommendBtn" class="btn">Get Recommendation</button>
+
+        <div id="recommendation" class="recommendation">
+            <!-- The recommendations will be displayed here -->
+        </div>
+        <button id="saveBtn" class="save-btn">Save Workout</button>
+
+        <button id="youtubeSearchBtn" class="btn" style="display: none;">Search Exercises on YouTube</button>
+
+<div id="youtubeVideos" class="youtube-videos">
+    <!-- YouTube videos will be displayed here -->
+</div>
+
+    </div>
+
+   <script src="main.js"></script>
+</body>
+</html>
