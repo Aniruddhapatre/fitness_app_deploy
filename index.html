@@ -229,13 +229,14 @@
                 });
 
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    document.getElementById('error-message').innerText = errorText;
-                    document.getElementById('error-message').style.display = 'block';
-                } else {
-                    // Redirect to homepage if login is successful
-                    window.location.href = 'homepage.html'; // Adjust to your homepage
-                }
+    const errorText = await response.text();
+    document.getElementById('error-message').innerText = errorText;
+    document.getElementById('error-message').style.display = 'block';
+} else {
+    console.log('Redirecting to homepage');
+    window.location.href = 'homepage.html'; // Adjust to your homepage
+}
+
             } catch (error) {
                 document.getElementById('error-message').innerText = 'An error occurred. Please try again.';
                 document.getElementById('error-message').style.display = 'block';

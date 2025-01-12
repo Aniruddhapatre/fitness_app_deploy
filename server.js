@@ -1,8 +1,11 @@
+require('dotenv').config();
+
+
 const express = require('express');
-const mysql = require('mysql2'); // Use mysql2 instead of mysql
+const mongoose = require('mongoose'); // Use Mongoose for MongoDB
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-const path = require('path'); // Import the path module
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -11,111 +14,81 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname))); // Serve static files from the current directory
 
-// MySQL connection
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'Aniruddha',
-    password: '1604',
-    database: 'fitnessdb',
+// MongoDB connection
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI)
+    .then(() => console.log('Connected to MongoDB Database'))
+    .catch((err) => console.error('MongoDB connection error:', err));
+
+// MongoDB user schema
+const userSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
 });
 
-// Connect to the MySQL database
-connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to MySQL Database');
-});
+const User = mongoose.model('User', userSchema);
 
 // Login endpoint
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    // Query to find user by email
-    const query = 'SELECT * FROM users WHERE email = ?';
-    connection.query(query, [email], (err, results) => {
-        if (err) {
-            return res.status(500).send('Server error');
-        }
-        if (results.length === 0) {
-            return res.status(401).send('Invalid email or password');
-        }
-
-        const user = results[0];
-
-        // Compare password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) {
-                return res.status(500).send('Server error');
-            }
-            if (!isMatch) {
-                return res.status(401).send('Invalid email or password');
-            }
-
-            // Successful login
-            // Send an HTML response with a script for alert and redirection
-            res.send(`
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.send(`
                 <html>
                     <head>
-                        <title>Login Successful</title>
+                        <title>Login Failed</title>
                         <script>
-                            alert('Login successful!');
-                            window.location.href = 'homepage.html'; // Redirect to homepage
+                            alert('Invalid email or password');
+                            window.location.href = 'index.html'; // Redirect to the login page
                         </script>
                     </head>
                     <body>
-                        <p>If you are not redirected, <a href="homepage.html">click here</a>.</p>
+                        <p>If you are not redirected, <a href="index.html">click here</a>.</p>
                     </body>
                 </html>
             `);
-        });
-    });
-});
-
-
-// Signup endpoint
-app.post('/signup', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    // Check if the user already exists
-    const checkUserQuery = 'SELECT * FROM users WHERE email = ?';
-    connection.query(checkUserQuery, [email], (err, results) => {
-        if (err) {
-            return res.status(500).send('Server error');
-        }
-        if (results.length > 0) {
-            return res.status(400).send('User already exists');
         }
 
-        // Hash the password before saving
-        bcrypt.hash(password, 10, (err, hashedPassword) => {
-            if (err) {
-                return res.status(500).send('Error hashing password');
-            }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.send(`
+                <html>
+                    <head>
+                        <title>Login Failed</title>
+                        <script>
+                            alert('Invalid email or password');
+                            window.location.href = 'index.html'; // Redirect to the login page
+                        </script>
+                    </head>
+                    <body>
+                        <p>If you are not redirected, <a href="index.html">click here</a>.</p>
+                    </body>
+                </html>
+            `);
+        }
 
-            // Insert the new user into the database
-            const insertUserQuery = 'INSERT INTO users (email, password) VALUES (?, ?)';
-            connection.query(insertUserQuery, [email, hashedPassword], (err, result) => {
-                if (err) {
-                    return res.status(500).send('Server error');
-                }
-
-                // Send an HTML response with a script for alert and redirection
-                res.send(`
-                    <html>
-                        <head>
-                            <title>Signup Successful</title>
-                            <script>
-                                alert('Signup successful! You can now log in.');
-                                window.location.href = 'logindex.html'; // Redirect to the login page (logindex.html)
-                            </script>
-                        </head>
+        // Successful login
+        res.send(`
+            <html>
+                <head>
+                    <title>Login Successful</title>
+                    <script>
                         
-                    </html>
-                `);
-            });
-        });
-    });
+                        window.location.href = 'homepage.html'; // Redirect to homepage
+                    </script>
+                </head>
+                <body>
+                    <p>If you are not redirected, <a href="homepage.html">click here</a>.</p>
+                </body>
+            </html>
+        `);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
 });
 
 
@@ -128,7 +101,6 @@ app.get('/', (req, res) => {
 app.get('/logindex', (req, res) => {
     res.sendFile(path.join(__dirname, 'logindex.html')); // Serve logindex.html
 });
-
 
 // Start the server
 app.listen(port, () => {
