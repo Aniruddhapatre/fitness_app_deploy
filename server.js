@@ -94,12 +94,12 @@ app.post('/login', async (req, res) => {
 
 // Serve logindex.html as the main page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'logindex.html')); // Serve logindex.html
+    res.sendFile(path.join(__dirname, 'index.html')); // Serve logindex.html
 });
 
 // Optional: Add an explicit route to access logindex.html directly
-app.get('/logindex', (req, res) => {
-    res.sendFile(path.join(__dirname, 'logindex.html')); // Serve logindex.html
+app.get('/index', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html')); // Serve logindex.html
 });
 
 // Start the server
